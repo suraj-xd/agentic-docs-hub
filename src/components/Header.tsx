@@ -1,7 +1,5 @@
-import { useState } from 'react';
-import { Search, Sun, Moon, Menu, X, Command } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { useState, useMemo } from 'react';
+import { Search, Menu, X, Sun, Moon } from 'lucide-react';
 import { patterns } from '@/data/patterns';
 
 interface HeaderProps {
@@ -13,19 +11,31 @@ interface HeaderProps {
   onPatternSelect: (slug: string) => void;
 }
 
-export function Header({ isDark, onToggleTheme, onToggleMobile, isMobileOpen, onSearch, onPatternSelect }: HeaderProps) {
+export const Header = ({
+  isDark,
+  onToggleTheme,
+  onToggleMobile,
+  isMobileOpen,
+  onSearch,
+  onPatternSelect,
+}: HeaderProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showResults, setShowResults] = useState(false);
 
-  const filteredPatterns = patterns.filter(p => 
-    p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    p.summary.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const searchResults = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    return patterns
+      .filter(p =>
+        p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.summary.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .slice(0, 5);
+  }, [searchQuery]);
 
-  const handleSearchChange = (value: string) => {
-    setSearchQuery(value);
-    setShowResults(value.length > 0);
-    onSearch(value);
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    onSearch(e.target.value);
+    setShowResults(true);
   };
 
   const handlePatternClick = (slug: string) => {
@@ -35,83 +45,66 @@ export function Header({ isDark, onToggleTheme, onToggleMobile, isMobileOpen, on
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-16 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="flex h-full items-center justify-between px-4 lg:px-6">
-        {/* Left: Mobile menu + Logo */}
-        <div className="flex items-center gap-3">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="lg:hidden"
+    <header className="fixed top-0 left-0 right-0 z-50 h-14 bg-background border-b border-border">
+      <div className="h-full flex items-center justify-between px-4 lg:px-6">
+        {/* Left section */}
+        <div className="flex items-center gap-4">
+          <button
             onClick={onToggleMobile}
-            aria-label={isMobileOpen ? "Close menu" : "Open menu"}
+            className="lg:hidden p-1.5 hover:bg-muted transition-colors"
+            aria-label="Toggle menu"
           >
-            {isMobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
+            {isMobileOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
           
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">AI</span>
-            </div>
-            <span className="font-semibold text-foreground hidden sm:block">
-              Agentic Design Patterns
+            <span className="text-sm font-medium text-foreground">◇</span>
+            <span className="text-sm font-medium text-foreground hidden sm:inline">
+              agentic-patterns
             </span>
           </div>
         </div>
 
-        {/* Center: Search */}
-        <div className="flex-1 max-w-md mx-4 relative">
+        {/* Search */}
+        <div className="flex-1 max-w-md mx-4 hidden sm:block relative">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <input
               type="text"
               placeholder="Search patterns..."
               value={searchQuery}
-              onChange={(e) => handleSearchChange(e.target.value)}
-              onFocus={() => searchQuery && setShowResults(true)}
+              onChange={handleSearchChange}
+              onFocus={() => setShowResults(true)}
               onBlur={() => setTimeout(() => setShowResults(false), 200)}
-              className="pl-9 pr-12 bg-muted/50 border-border focus:bg-background"
+              className="w-full h-8 pl-9 pr-4 text-xs bg-muted border border-border focus:border-foreground focus:outline-none placeholder:text-muted-foreground transition-colors"
             />
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-0.5 text-xs text-muted-foreground">
-              <Command className="h-3 w-3" />
-              <span>K</span>
-            </div>
           </div>
 
-          {/* Search Results Dropdown */}
-          {showResults && filteredPatterns.length > 0 && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-lg shadow-lg overflow-hidden max-h-80 overflow-y-auto">
-              {filteredPatterns.map(pattern => (
+          {showResults && searchResults.length > 0 && (
+            <div className="absolute top-full left-0 right-0 mt-1 bg-card border border-border shadow-lg">
+              {searchResults.map(pattern => (
                 <button
                   key={pattern.id}
                   onClick={() => handlePatternClick(pattern.slug)}
-                  className="w-full px-4 py-3 text-left hover:bg-muted transition-colors border-b border-border last:border-0"
+                  className="w-full px-3 py-2 text-left text-xs hover:bg-muted transition-colors border-b border-border last:border-b-0"
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-muted-foreground">
-                      #{pattern.id}
-                    </span>
-                    <span className="font-medium text-foreground">{pattern.title}</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground mt-1 line-clamp-1">
-                    {pattern.summary}
-                  </p>
+                  <span className="text-muted-foreground mr-2">{pattern.id}.</span>
+                  <span className="text-foreground">{pattern.title}</span>
                 </button>
               ))}
             </div>
           )}
         </div>
 
-        {/* Right: Theme toggle */}
-        <Button
-          variant="ghost"
-          size="icon"
+        {/* Right section */}
+        <button
           onClick={onToggleTheme}
-          aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+          className="p-1.5 hover:bg-muted transition-colors"
+          aria-label="Toggle theme"
         >
-          {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-        </Button>
+          {isDark ? <Sun size={16} /> : <Moon size={16} />}
+        </button>
       </div>
     </header>
   );
-}
+};

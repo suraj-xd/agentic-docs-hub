@@ -2,125 +2,126 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Anthropic-inspired warm documentation design system */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* Minimal Vercel/AI SDK Tools inspired design system */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    /* Warm Anthropic-inspired palette */
-    --background: 40 33% 99%;
-    --foreground: 24 10% 10%;
+    /* Pure minimal light palette */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 9%;
 
-    --card: 40 25% 98%;
-    --card-foreground: 24 10% 10%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 9%;
 
-    --popover: 40 25% 98%;
-    --popover-foreground: 24 10% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
 
-    --primary: 24 76% 46%;
-    --primary-foreground: 40 33% 99%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 40 20% 94%;
-    --secondary-foreground: 24 10% 20%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 9%;
 
-    --muted: 40 15% 92%;
-    --muted-foreground: 24 8% 45%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 24 60% 94%;
-    --accent-foreground: 24 76% 36%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 9%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 40 20% 88%;
-    --input: 40 20% 88%;
-    --ring: 24 76% 46%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 9%;
 
-    --radius: 0.5rem;
+    --radius: 0px;
 
     /* Sidebar tokens */
-    --sidebar-background: 40 20% 97%;
-    --sidebar-foreground: 24 10% 30%;
-    --sidebar-primary: 24 76% 46%;
-    --sidebar-primary-foreground: 40 33% 99%;
-    --sidebar-accent: 24 60% 94%;
-    --sidebar-accent-foreground: 24 76% 36%;
-    --sidebar-border: 40 20% 90%;
-    --sidebar-ring: 24 76% 46%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 40%;
+    --sidebar-primary: 0 0% 9%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 9%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 0 0% 9%;
 
     /* Documentation-specific tokens */
-    --doc-heading: 24 10% 10%;
-    --doc-text: 24 8% 25%;
-    --doc-link: 24 76% 46%;
-    --doc-code-bg: 24 10% 8%;
-    --doc-code-text: 40 20% 90%;
-    --doc-inline-code-bg: 40 20% 92%;
-    --doc-inline-code-text: 24 70% 40%;
+    --doc-heading: 0 0% 9%;
+    --doc-text: 0 0% 25%;
+    --doc-link: 0 0% 9%;
+    --doc-code-bg: 0 0% 4%;
+    --doc-code-text: 0 0% 90%;
+    --doc-inline-code-bg: 0 0% 94%;
+    --doc-inline-code-text: 0 0% 20%;
     
-    /* Complexity badges */
+    /* Complexity badges - minimal monochrome */
     --badge-beginner: 142 71% 45%;
     --badge-intermediate: 45 93% 47%;
-    --badge-advanced: 24 76% 46%;
+    --badge-advanced: 0 0% 45%;
     --badge-experimental: 0 84% 60%;
 
     /* Progress bar */
-    --progress-bg: 40 20% 90%;
-    --progress-fill: 24 76% 46%;
+    --progress-bg: 0 0% 90%;
+    --progress-fill: 0 0% 9%;
   }
 
   .dark {
-    --background: 24 10% 8%;
-    --foreground: 40 20% 95%;
+    /* True black minimal palette */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 95%;
 
-    --card: 24 10% 10%;
-    --card-foreground: 40 20% 95%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 24 10% 10%;
-    --popover-foreground: 40 20% 95%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 24 80% 55%;
-    --primary-foreground: 24 10% 8%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
 
-    --secondary: 24 10% 15%;
-    --secondary-foreground: 40 20% 90%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 24 10% 18%;
-    --muted-foreground: 40 15% 60%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 24 40% 18%;
-    --accent-foreground: 24 80% 65%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 95%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 24 10% 20%;
-    --input: 24 10% 20%;
-    --ring: 24 80% 55%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 0 0% 85%;
 
-    --sidebar-background: 24 10% 6%;
-    --sidebar-foreground: 40 15% 70%;
-    --sidebar-primary: 24 80% 55%;
-    --sidebar-primary-foreground: 24 10% 8%;
-    --sidebar-accent: 24 40% 15%;
-    --sidebar-accent-foreground: 24 80% 65%;
-    --sidebar-border: 24 10% 15%;
-    --sidebar-ring: 24 80% 55%;
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 0 0% 60%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 0 0% 9%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 0 0% 85%;
 
-    --doc-heading: 40 20% 95%;
-    --doc-text: 40 15% 75%;
-    --doc-link: 24 80% 60%;
-    --doc-code-bg: 24 10% 5%;
-    --doc-code-text: 40 20% 85%;
-    --doc-inline-code-bg: 24 10% 15%;
-    --doc-inline-code-text: 24 60% 65%;
+    --doc-heading: 0 0% 95%;
+    --doc-text: 0 0% 70%;
+    --doc-link: 0 0% 85%;
+    --doc-code-bg: 0 0% 2%;
+    --doc-code-text: 0 0% 85%;
+    --doc-inline-code-bg: 0 0% 15%;
+    --doc-inline-code-text: 0 0% 75%;
 
     --badge-beginner: 142 50% 40%;
     --badge-intermediate: 45 80% 45%;
-    --badge-advanced: 24 70% 50%;
+    --badge-advanced: 0 0% 60%;
     --badge-experimental: 0 70% 50%;
 
-    --progress-bg: 24 10% 15%;
-    --progress-fill: 24 80% 55%;
+    --progress-bg: 0 0% 15%;
+    --progress-fill: 0 0% 85%;
   }
 }
 
@@ -130,8 +131,8 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'JetBrains Mono', monospace;
   }
 
   /* Smooth scrolling */
@@ -139,23 +140,22 @@
     scroll-behavior: smooth;
   }
 
-  /* Custom scrollbar */
+  /* Minimal scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    background: hsl(var(--muted));
+    background: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--muted-foreground) / 0.3);
-    border-radius: 4px;
+    background: hsl(var(--muted-foreground) / 0.2);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--muted-foreground) / 0.5);
+    background: hsl(var(--muted-foreground) / 0.4);
   }
 }
 
@@ -173,27 +173,25 @@
   }
 
   .doc-code-block {
-    @apply bg-[hsl(var(--doc-code-bg))] text-[hsl(var(--doc-code-text))] rounded-lg;
+    @apply bg-[hsl(var(--doc-code-bg))] text-[hsl(var(--doc-code-text))];
   }
 
   .doc-inline-code {
-    @apply bg-[hsl(var(--doc-inline-code-bg))] text-[hsl(var(--doc-inline-code-text))] px-1.5 py-0.5 rounded text-sm font-mono;
+    @apply bg-[hsl(var(--doc-inline-code-bg))] text-[hsl(var(--doc-inline-code-text))] px-1.5 py-0.5 text-sm font-mono;
   }
 }
 
 @layer utilities {
   .animate-fade-in {
-    animation: fadeIn 0.3s ease-out;
+    animation: fadeIn 0.2s ease-out;
   }
 
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(4px);
     }
     to {
       opacity: 1;
-      transform: translateY(0);
     }
   }
 }

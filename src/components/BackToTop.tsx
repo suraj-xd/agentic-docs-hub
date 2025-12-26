@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ArrowUp } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 
-export function BackToTop() {
+export const BackToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -19,18 +17,15 @@ export function BackToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  if (!isVisible) return null;
+
   return (
-    <Button
-      variant="secondary"
-      size="icon"
+    <button
       onClick={scrollToTop}
-      className={cn(
-        "fixed bottom-6 right-6 z-40 shadow-lg transition-all duration-300",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
-      )}
+      className="fixed bottom-6 right-6 z-40 p-2 bg-foreground text-background hover:bg-foreground/90 transition-colors"
       aria-label="Back to top"
     >
-      <ArrowUp className="h-5 w-5" />
-    </Button>
+      <ArrowUp size={16} />
+    </button>
   );
-}
+};

@@ -7,10 +7,9 @@ import { QuickReference } from '@/components/QuickReference';
 import { BackToTop } from '@/components/BackToTop';
 import { patterns } from '@/data/patterns';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
-import { BookOpen, Layers, Zap } from 'lucide-react';
 
 const Index = () => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -47,7 +46,7 @@ const Index = () => {
   }, [searchQuery]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <Header
         isDark={isDark}
         onToggleTheme={() => setIsDark(!isDark)}
@@ -65,51 +64,46 @@ const Index = () => {
         onClose={() => setIsMobileOpen(false)}
       />
 
-      <main className="pt-16 lg:pl-72">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <main className="pt-14 lg:pl-64">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
           {/* Introduction */}
-          <section id="introduction" className="scroll-mt-24 mb-16">
-            <h1 className="text-4xl sm:text-5xl font-bold doc-heading mb-4">
+          <section id="introduction" className="scroll-mt-20 mb-12">
+            <h1 className="text-lg font-medium mb-2">
               Agentic Design Patterns
             </h1>
-            <p className="text-xl doc-prose mb-8">
-              A comprehensive guide to 20 advanced AI agent architectures that separate professionals from beginners.
+            <p className="text-xs text-muted-foreground leading-relaxed max-w-xl">
+              A comprehensive guide to {patterns.length} advanced AI agent architectures. 
+              Each pattern includes process flows, use cases, and implementation considerations.
             </p>
-
-            <div className="grid sm:grid-cols-3 gap-4 mb-8">
-              <div className="p-4 rounded-lg bg-card border border-border">
-                <BookOpen className="h-8 w-8 text-primary mb-2" />
-                <h3 className="font-semibold mb-1">20 Patterns</h3>
-                <p className="text-sm text-muted-foreground">From beginner to advanced</p>
-              </div>
-              <div className="p-4 rounded-lg bg-card border border-border">
-                <Layers className="h-8 w-8 text-primary mb-2" />
-                <h3 className="font-semibold mb-1">Visual Diagrams</h3>
-                <p className="text-sm text-muted-foreground">Process flows for each pattern</p>
-              </div>
-              <div className="p-4 rounded-lg bg-card border border-border">
-                <Zap className="h-8 w-8 text-primary mb-2" />
-                <h3 className="font-semibold mb-1">Real Examples</h3>
-                <p className="text-sm text-muted-foreground">Practical applications</p>
+            
+            <div className="mt-6 pt-6 border-t border-border">
+              <div className="flex items-center gap-6 text-xs text-muted-foreground">
+                <span>{patterns.length} patterns</span>
+                <span>•</span>
+                <span>beginner → advanced</span>
+                <span>•</span>
+                <span>with diagrams</span>
               </div>
             </div>
           </section>
 
           {/* Pattern Cards */}
-          <div className="space-y-8">
+          <div className="space-y-6">
             {filteredPatterns.map(pattern => (
               <PatternCard key={pattern.id} pattern={pattern} />
             ))}
           </div>
 
           {/* Quick Reference */}
-          <div className="mt-16">
+          <div id="quick-reference" className="scroll-mt-20 mt-12">
             <QuickReference onPatternClick={handlePatternClick} />
           </div>
 
           {/* Footer */}
-          <footer className="mt-16 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-            <p>Agentic Design Patterns Guide</p>
+          <footer className="mt-12 pt-6 border-t border-border">
+            <p className="text-xs text-muted-foreground">
+              agentic-patterns — {new Date().getFullYear()}
+            </p>
           </footer>
         </div>
       </main>

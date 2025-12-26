@@ -1,8 +1,5 @@
 import { useMemo } from 'react';
-import { patterns, getComplexityColor } from '@/data/patterns';
-import { cn } from '@/lib/utils';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Badge } from '@/components/ui/badge';
+import { patterns } from '@/data/patterns';
 
 interface SidebarProps {
   activeId: string;
@@ -12,140 +9,122 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
-export function Sidebar({ activeId, scrollProgress, onPatternClick, isOpen = true, onClose }: SidebarProps) {
+export const Sidebar = ({
+  activeId,
+  scrollProgress,
+  onPatternClick,
+  isOpen = false,
+  onClose,
+}: SidebarProps) => {
   const handleClick = (slug: string) => {
     onPatternClick(slug);
     onClose?.();
   };
 
-  const sidebarContent = useMemo(() => (
-    <>
-      {/* Progress bar */}
-      <div className="px-4 py-3 border-b border-sidebar-border">
-        <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
-          <span>Reading progress</span>
-          <span>{Math.round(scrollProgress)}%</span>
+  const sidebarContent = useMemo(
+    () => (
+      <div className="h-full flex flex-col">
+        {/* Progress bar */}
+        <div className="px-4 py-3 border-b border-border">
+          <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+            <span>Progress</span>
+            <span>{Math.round(scrollProgress)}%</span>
+          </div>
+          <div className="h-0.5 bg-progress-bg">
+            <div
+              className="h-full bg-progress-fill transition-all duration-150"
+              style={{ width: `${scrollProgress}%` }}
+            />
+          </div>
         </div>
-        <div className="h-1 bg-progress-bg rounded-full overflow-hidden">
-          <div 
-            className="h-full bg-progress-fill transition-all duration-150 ease-out"
-            style={{ width: `${scrollProgress}%` }}
-          />
-        </div>
-      </div>
 
-      {/* Navigation */}
-      <ScrollArea className="flex-1 px-2 py-3">
-        <nav className="space-y-1">
+        {/* Navigation */}
+        <nav className="flex-1 overflow-y-auto py-2">
           {/* Introduction */}
-          <button
-            onClick={() => handleClick('introduction')}
-            className={cn(
-              "w-full text-left px-3 py-2 rounded-md text-sm transition-colors",
-              activeId === 'introduction'
-                ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-                : "text-sidebar-foreground hover:bg-sidebar-accent/50"
-            )}
-          >
-            Introduction
-          </button>
+          <div className="px-2 mb-1">
+            <button
+              onClick={() => handleClick('introduction')}
+              className={`w-full px-3 py-1.5 text-left text-xs transition-colors ${
+                activeId === 'introduction'
+                  ? 'bg-foreground text-background'
+                  : 'text-sidebar-foreground hover:bg-muted hover:text-foreground'
+              }`}
+            >
+              introduction
+            </button>
+          </div>
 
-          {/* Patterns list */}
-          <div className="pt-2">
-            <div className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+          {/* Patterns section */}
+          <div className="px-4 py-2">
+            <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
               Patterns
-            </div>
+            </span>
+          </div>
+
+          <div className="px-2 space-y-0.5">
             {patterns.map(pattern => (
               <button
                 key={pattern.id}
                 onClick={() => handleClick(pattern.slug)}
-                className={cn(
-                  "w-full text-left px-3 py-2.5 rounded-md text-sm transition-all duration-150 group flex items-start gap-2",
+                className={`w-full px-3 py-1.5 text-left text-xs transition-colors flex items-start gap-2 ${
                   activeId === pattern.slug
-                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                    : "text-sidebar-foreground hover:bg-sidebar-accent/50"
-                )}
+                    ? 'bg-foreground text-background'
+                    : 'text-sidebar-foreground hover:bg-muted hover:text-foreground'
+                }`}
               >
-                <span className={cn(
-                  "flex-shrink-0 w-6 h-6 rounded text-xs font-medium flex items-center justify-center transition-colors",
-                  activeId === pattern.slug
-                    ? "bg-sidebar-primary text-sidebar-primary-foreground"
-                    : "bg-muted text-muted-foreground group-hover:bg-sidebar-accent"
-                )}>
-                  {pattern.id}
+                <span className="text-muted-foreground shrink-0 w-4">
+                  {pattern.id.toString().padStart(2, '0')}
                 </span>
-                <span className={cn(
-                  "flex-1 leading-tight",
-                  activeId === pattern.slug && "font-medium"
-                )}>
-                  {pattern.title}
-                </span>
+                <span className="truncate">{pattern.title}</span>
               </button>
             ))}
           </div>
 
           {/* Quick Reference */}
-          <div className="pt-4">
+          <div className="px-2 mt-4">
             <button
               onClick={() => handleClick('quick-reference')}
-              className={cn(
-                "w-full text-left px-3 py-2 rounded-md text-sm transition-colors",
+              className={`w-full px-3 py-1.5 text-left text-xs transition-colors ${
                 activeId === 'quick-reference'
-                  ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-                  : "text-sidebar-foreground hover:bg-sidebar-accent/50"
-              )}
+                  ? 'bg-foreground text-background'
+                  : 'text-sidebar-foreground hover:bg-muted hover:text-foreground'
+              }`}
             >
-              Quick Reference
+              reference
             </button>
           </div>
         </nav>
-      </ScrollArea>
 
-      {/* Complexity Legend */}
-      <div className="p-4 border-t border-sidebar-border space-y-2">
-        <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-          Complexity
-        </div>
-        <div className="flex flex-wrap gap-1.5">
-          <Badge className={cn("text-xs", getComplexityColor('beginner'))}>
-            Beginner
-          </Badge>
-          <Badge className={cn("text-xs", getComplexityColor('intermediate'))}>
-            Intermediate
-          </Badge>
-          <Badge className={cn("text-xs", getComplexityColor('advanced'))}>
-            Advanced
-          </Badge>
-          <Badge className={cn("text-xs", getComplexityColor('experimental'))}>
-            Experimental
-          </Badge>
+        {/* Footer */}
+        <div className="px-4 py-3 border-t border-border">
+          <div className="text-[10px] text-muted-foreground">
+            {patterns.length} patterns
+          </div>
         </div>
       </div>
-    </>
-  ), [activeId, scrollProgress, handleClick]);
+    ),
+    [activeId, scrollProgress]
+  );
 
   return (
     <>
-      {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex lg:flex-col lg:fixed lg:left-0 lg:top-16 lg:bottom-0 lg:w-72 lg:border-r lg:border-sidebar-border lg:bg-sidebar">
+      {/* Desktop sidebar */}
+      <aside className="hidden lg:block fixed left-0 top-14 bottom-0 w-64 bg-sidebar border-r border-sidebar-border overflow-hidden">
         {sidebarContent}
       </aside>
 
-      {/* Mobile Sidebar Overlay */}
+      {/* Mobile sidebar overlay */}
       {isOpen && (
-        <div 
-          className="lg:hidden fixed inset-0 top-16 z-40 bg-background/80 backdrop-blur-sm"
-          onClick={onClose}
-        />
+        <div className="lg:hidden fixed inset-0 z-40">
+          <div
+            className="absolute inset-0 bg-background/80"
+            onClick={onClose}
+          />
+          <aside className="absolute left-0 top-14 bottom-0 w-64 bg-sidebar border-r border-sidebar-border overflow-hidden">
+            {sidebarContent}
+          </aside>
+        </div>
       )}
-
-      {/* Mobile Sidebar */}
-      <aside className={cn(
-        "lg:hidden fixed left-0 top-16 bottom-0 w-72 border-r border-sidebar-border bg-sidebar z-50 flex flex-col transition-transform duration-300",
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      )}>
-        {sidebarContent}
-      </aside>
     </>
   );
-}
+};

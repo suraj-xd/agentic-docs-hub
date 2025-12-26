@@ -1,130 +1,68 @@
-import { patterns, patternSelectionMatrix, getComplexityColor } from '@/data/patterns';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { cn } from '@/lib/utils';
+import { patterns, patternSelectionMatrix } from '@/data/patterns';
 
 interface QuickReferenceProps {
   onPatternClick: (slug: string) => void;
 }
 
-export function QuickReference({ onPatternClick }: QuickReferenceProps) {
+export const QuickReference = ({ onPatternClick }: QuickReferenceProps) => {
   const beginnerPatterns = patterns.filter(p => p.complexity === 'beginner');
   const intermediatePatterns = patterns.filter(p => p.complexity === 'intermediate');
   const advancedPatterns = patterns.filter(p => p.complexity === 'advanced');
   const experimentalPatterns = patterns.filter(p => p.complexity === 'experimental');
 
+  const complexityGroups = [
+    { label: 'beginner', patterns: beginnerPatterns },
+    { label: 'intermediate', patterns: intermediatePatterns },
+    { label: 'advanced', patterns: advancedPatterns },
+    { label: 'experimental', patterns: experimentalPatterns },
+  ].filter(g => g.patterns.length > 0);
+
   return (
-    <div id="quick-reference" className="scroll-mt-24 space-y-8">
+    <div className="space-y-8">
       <div>
-        <h2 className="text-3xl font-bold doc-heading mb-2">Quick Reference Guide</h2>
-        <p className="doc-prose">Find the right pattern for your use case.</p>
+        <h2 className="text-lg font-medium mb-1">Quick Reference</h2>
+        <p className="text-xs text-muted-foreground">Find the right pattern for your use case.</p>
       </div>
 
       {/* Pattern Selection Matrix */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Pattern Selection Matrix</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-1/3">Use Case</TableHead>
-                <TableHead>Recommended Patterns</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {patternSelectionMatrix.map((row, i) => (
-                <TableRow key={i}>
-                  <TableCell className="font-medium">{row.useCase}</TableCell>
-                  <TableCell className="doc-prose">{row.patterns}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
-
-      {/* Complexity Levels */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Patterns by Complexity</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {/* Beginner */}
-          <div>
-            <h4 className="font-semibold flex items-center gap-2 mb-3">
-              <Badge className={getComplexityColor('beginner')}>Beginner-Friendly</Badge>
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {beginnerPatterns.map(p => (
-                <button
-                  key={p.id}
-                  onClick={() => onPatternClick(p.slug)}
-                  className="px-3 py-1.5 bg-muted rounded-md text-sm hover:bg-muted/80 transition-colors"
-                >
-                  #{p.id} {p.title}
-                </button>
-              ))}
+      <div className="border border-border">
+        <div className="px-4 py-2 border-b border-border bg-muted/50">
+          <h3 className="text-xs font-medium">Selection Matrix</h3>
+        </div>
+        <div className="divide-y divide-border">
+          {patternSelectionMatrix.map((row, i) => (
+            <div key={i} className="px-4 py-3 grid sm:grid-cols-3 gap-2">
+              <div className="text-xs text-muted-foreground">{row.useCase}</div>
+              <div className="sm:col-span-2 text-xs text-foreground">{row.patterns}</div>
             </div>
-          </div>
+          ))}
+        </div>
+      </div>
 
-          {/* Intermediate */}
-          <div>
-            <h4 className="font-semibold flex items-center gap-2 mb-3">
-              <Badge className={getComplexityColor('intermediate')}>Intermediate</Badge>
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {intermediatePatterns.map(p => (
-                <button
-                  key={p.id}
-                  onClick={() => onPatternClick(p.slug)}
-                  className="px-3 py-1.5 bg-muted rounded-md text-sm hover:bg-muted/80 transition-colors"
-                >
-                  #{p.id} {p.title}
-                </button>
-              ))}
+      {/* Patterns by Complexity */}
+      <div className="border border-border">
+        <div className="px-4 py-2 border-b border-border bg-muted/50">
+          <h3 className="text-xs font-medium">By Complexity</h3>
+        </div>
+        <div className="p-4 space-y-4">
+          {complexityGroups.map(group => (
+            <div key={group.label}>
+              <span className="text-xs text-muted-foreground mb-2 block">[{group.label}]</span>
+              <div className="flex flex-wrap gap-1">
+                {group.patterns.map(p => (
+                  <button
+                    key={p.id}
+                    onClick={() => onPatternClick(p.slug)}
+                    className="px-2 py-1 text-xs border border-border hover:bg-muted transition-colors"
+                  >
+                    {p.id.toString().padStart(2, '0')} {p.title}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-
-          {/* Advanced */}
-          <div>
-            <h4 className="font-semibold flex items-center gap-2 mb-3">
-              <Badge className={getComplexityColor('advanced')}>Advanced</Badge>
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {advancedPatterns.map(p => (
-                <button
-                  key={p.id}
-                  onClick={() => onPatternClick(p.slug)}
-                  className="px-3 py-1.5 bg-muted rounded-md text-sm hover:bg-muted/80 transition-colors"
-                >
-                  #{p.id} {p.title}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Experimental */}
-          <div>
-            <h4 className="font-semibold flex items-center gap-2 mb-3">
-              <Badge className={getComplexityColor('experimental')}>Experimental (Use with Caution)</Badge>
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {experimentalPatterns.map(p => (
-                <button
-                  key={p.id}
-                  onClick={() => onPatternClick(p.slug)}
-                  className="px-3 py-1.5 bg-muted rounded-md text-sm hover:bg-muted/80 transition-colors"
-                >
-                  #{p.id} {p.title}
-                </button>
-              ))}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+          ))}
+        </div>
+      </div>
     </div>
   );
-}
+};

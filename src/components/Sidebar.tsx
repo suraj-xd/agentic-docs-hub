@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Github, Twitter } from 'lucide-react';
 import { patterns } from '@/data/patterns';
 
 interface SidebarProps {
@@ -97,8 +98,32 @@ export const Sidebar = ({
 
         {/* Footer */}
         <div className="px-4 py-3 border-t border-border">
-          <div className="text-[10px] text-muted-foreground">
-            {patterns.length} patterns
+          <div className="flex items-center justify-between">
+            <div className="text-[10px] text-muted-foreground">
+              {patterns.length} patterns
+            </div>
+            <div className="flex items-center gap-4">
+              <a
+                href="https://github.com/suraj-xd"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="GitHub"
+              >
+                <Github size={14} />
+              </a>
+              <a
+                href="https://x.com/notsurajgaud"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="X (Twitter)"
+              >
+                <svg fill="currentColor" viewBox="0 0 1200 1227" className="w-3 h-3">
+                  <path d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"/>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>

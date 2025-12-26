@@ -1,5 +1,10 @@
 export type ComplexityLevel = 'beginner' | 'intermediate' | 'advanced' | 'experimental';
 
+export interface Resource {
+  name: string;
+  url: string;
+}
+
 export interface Pattern {
   id: number;
   slug: string;
@@ -11,6 +16,7 @@ export interface Pattern {
   applications: string[];
   pros: string[];
   cons: string[];
+  resources?: Resource[];
   keyConsideration?: string;
   mermaidDiagram?: string;
 }
@@ -48,6 +54,23 @@ export const patterns: Pattern[] = [
       "Diminishing returns after 5-7 chains"
     ],
     keyConsideration: "Magic number is typically 3-5 chains. Each step must validate before proceeding.",
+    resources: [
+      { name: "LangChain", url: "https://python.langchain.com/" },
+      { name: "LangGraph", url: "https://langchain-ai.github.io/langgraph/" },
+      { name: "Langbase SDK", url: "https://langbase.com/" },
+      { name: "Dust.tt", url: "https://dust.tt/" },
+      { name: "OpenManus", url: "https://github.com/openmanus/openmanus" },
+      { name: "Flowise", url: "https://flowiseai.com/" },
+      { name: "FreeCodeCamp: Build Autonomous Agents", url: "https://www.freecodecamp.org/news/build-autonomous-agents-using-prompt-chaining-with-ai-primitives/" },
+      { name: "Anthropic: Building Effective Agents", url: "https://www.anthropic.com/engineering/building-effective-agents" },
+      { name: "Prompt Engineering Guide: Prompt Chaining", url: "https://www.promptingguide.ai/techniques/prompt_chaining" },
+      { name: "Refonte Learning Guide", url: "https://www.refontelearning.com/blog/prompt-chaining-and-advanced-orchestration-methods" },
+      { name: "NivaLabs: Prompt Chaining for AI Agents", url: "https://medium.com/@nivalabs.ai/prompt-chaining-for-the-ai-agents-modular-reliable-and-scalable-workflows-a22d15fd5d33" },
+      { name: "Prompt Chain AI Guide", url: "https://reply.io/blog/prompt-chain-ai/" },
+      { name: "GoCodeo: Prompt Chaining for Agents", url: "https://www.gocodeo.com/post/prompt-chaining-for-agents-from-zero-shot-tasks-to-full-autonomy" },
+      { name: "MindPal", url: "https://mindpal.io/" },
+      { name: "OpenPrompt Framework", url: "https://github.com/thunlp/OpenPrompt" }
+    ],
     mermaidDiagram: `graph TD
     A[User Input] --> B[Break into Subtasks]
     B --> C[Define Data Contracts]
@@ -95,6 +118,21 @@ export const patterns: Pattern[] = [
       "Complexity in decision logic"
     ],
     keyConsideration: "Add confidence scoring (1-10) and request clarification if confidence < threshold",
+    resources: [
+      { name: "AutoGen (Microsoft)", url: "https://microsoft.github.io/autogen/" },
+      { name: "LangGraph", url: "https://langchain-ai.github.io/langgraph/" },
+      { name: "CrewAI", url: "https://www.crewai.com/" },
+      { name: "LangGraph vs AutoGen", url: "https://www.truefoundry.com/blog/autogen-vs-langgraph" },
+      { name: "AutoGen vs LangGraph vs CrewAI Battle", url: "https://medium.com/@vikaskumarsingh_60821/battle-of-ai-agent-frameworks-langgraph-vs-autogen-vs-crewai-3c7bf5c18979" },
+      { name: "Agent Orchestration Frameworks", url: "https://medium.com/@akankshasinha247/agent-orchestration-when-to-use-langchain-langgraph-autogen-or-build-an-agentic-rag-system-cc298f785ea4" },
+      { name: "Top 10+ Agentic Orchestration Frameworks", url: "https://research.aimultiple.com/agentic-orchestration/" },
+      { name: "Top 5 Open-Source Agentic Frameworks", url: "https://research.aimultiple.com/agentic-frameworks/" },
+      { name: "A Detailed Comparison of Top 6 AI Agent Frameworks", url: "https://www.turing.com/resources/ai-agent-frameworks" },
+      { name: "LangGraph vs AutoGen Comparison", url: "https://blog.promptlayer.com/langgraph-vs-autogen/" },
+      { name: "LangGraph Integration with AutoGen & CrewAI", url: "https://docs.langchain.com/langgraph-platform/autogen-integration" },
+      { name: "AutoGen Studio (No-code)", url: "https://microsoft.github.io/autogen/" },
+      { name: "LangGraph Visual Studio", url: "https://langchain-ai.github.io/langgraph/" }
+    ],
     mermaidDiagram: `graph TD
     A[User Request] --> B[Analyze Intent & Context]
     B --> C{Route Decision}
@@ -140,6 +178,11 @@ export const patterns: Pattern[] = [
       "Difficult to unify outputs",
       "Need 'HR' agents for management",
       "Resource intensive"
+    ],
+    resources: [
+      { name: "LangChain", url: "https://python.langchain.com/" },
+      { name: "AutoGen (parallel agents)", url: "https://microsoft.github.io/autogen/" },
+      { name: "CrewAI (crews)", url: "https://www.crewai.com/" }
     ],
     mermaidDiagram: `graph TD
     A[Large Input] --> B[Analyze Input]
@@ -190,7 +233,11 @@ export const patterns: Pattern[] = [
       "Slower processing",
       "Need robust rubrics"
     ],
-    keyConsideration: "Set max retry count (typically 3) to avoid infinite loops"
+    keyConsideration: "Set max retry count (typically 3) to avoid infinite loops",
+    resources: [
+      { name: "LangChain with critic agents", url: "https://python.langchain.com/" },
+      { name: "AutoGen with feedback loops", url: "https://microsoft.github.io/autogen/" }
+    ]
   },
   {
     id: 5,
@@ -220,6 +267,11 @@ export const patterns: Pattern[] = [
       "Tool misfire risks",
       "Cascading errors if wrong tool used",
       "Permission management complexity"
+    ],
+    resources: [
+      { name: "LangChain Tools", url: "https://python.langchain.com/docs/modules/agents/tools/" },
+      { name: "Anthropic MCP (Model Context Protocol)", url: "https://www.anthropic.com/news/model-context-protocol" },
+      { name: "MCP Documentation", url: "https://modelcontextprotocol.io/" }
     ],
     mermaidDiagram: `graph TD
     A[User Request] --> B[Analyze Requirements]
@@ -270,6 +322,10 @@ export const patterns: Pattern[] = [
       "Setup complexity",
       "Agent coordination overhead",
       "Requires robust fallback mechanisms"
+    ],
+    resources: [
+      { name: "LangGraph (graph-based planning)", url: "https://langchain-ai.github.io/langgraph/" },
+      { name: "AutoGen (conversational planning)", url: "https://microsoft.github.io/autogen/" }
     ]
   },
   {
@@ -302,6 +358,13 @@ export const patterns: Pattern[] = [
       "Coordination overhead",
       "Memory management challenges",
       "Model drift concerns"
+    ],
+    resources: [
+      { name: "CrewAI (role-based)", url: "https://www.crewai.com/" },
+      { name: "AutoGen (conversational)", url: "https://microsoft.github.io/autogen/" },
+      { name: "LangGraph (graph coordination)", url: "https://langchain-ai.github.io/langgraph/" },
+      { name: "Agent Orchestration Framework Comparison", url: "https://research.aimultiple.com/agentic-orchestration/" },
+      { name: "Multi-Agent Tools Compared", url: "https://www.amplework.com/blog/langgraph-vs-autogen-vs-crewai-multi-agent-framework/" }
     ]
   },
   {
@@ -335,6 +398,20 @@ export const patterns: Pattern[] = [
       "Privacy considerations"
     ],
     keyConsideration: "Implement memory decay for old/irrelevant information",
+    resources: [
+      { name: "Mem0", url: "https://mem0.ai/" },
+      { name: "Mem0 GitHub", url: "https://github.com/mem0ai/mem0" },
+      { name: "Mem0 Paper", url: "https://arxiv.org/abs/2504.19413" },
+      { name: "Zep", url: "https://www.getzep.com/" },
+      { name: "Zep Blog", url: "https://blog.getzep.com/" },
+      { name: "Supermemory", url: "https://supermemory.ai/" },
+      { name: "Supermemory MCP Documentation", url: "https://supermemory.ai/docs/supermemory-mcp/introduction" },
+      { name: "MemOS", url: "https://github.com/MemTensor/MemOS" },
+      { name: "Cognee", url: "https://www.cognee.ai/" },
+      { name: "Cognee Evaluation Blog", url: "https://www.cognee.ai/blog/deep-dives/ai-memory-tools-evaluation" },
+      { name: "Mem0 vs Zep Performance Analysis", url: "https://blog.getzep.com/lies-damn-lies-statistics-is-mem0-really-sota-in-agent-memory/" },
+      { name: "AI Memory Layer: Top Platforms", url: "https://arize.com/ai-memory/" }
+    ],
     mermaidDiagram: `graph TD
     A[User Interaction] --> B[Capture Information]
     B --> C{Memory Type?}
@@ -390,6 +467,9 @@ export const patterns: Pattern[] = [
       "Risk of learning wrong patterns",
       "Requires validation checks",
       "Combinatorial cost problems"
+    ],
+    resources: [
+      { name: "LangChain feedback loops", url: "https://python.langchain.com/" }
     ]
   },
   {
@@ -421,6 +501,9 @@ export const patterns: Pattern[] = [
       "Rigid constraints",
       "Edge case sensitivity",
       "Complex setup"
+    ],
+    resources: [
+      { name: "LangGraph with state tracking", url: "https://langchain-ai.github.io/langgraph/" }
     ]
   },
   {
@@ -453,6 +536,10 @@ export const patterns: Pattern[] = [
       "False alarm potential",
       "Alert fatigue risk",
       "Setup overhead"
+    ],
+    resources: [
+      { name: "Error handling in LangChain", url: "https://python.langchain.com/" },
+      { name: "Retry mechanisms in AutoGen", url: "https://microsoft.github.io/autogen/" }
     ]
   },
   {
@@ -483,6 +570,11 @@ export const patterns: Pattern[] = [
       "Added latency",
       "Workflow interruption",
       "Requires human availability"
+    ],
+    resources: [
+      { name: "LangGraph (interrupt_before breakpoints)", url: "https://langchain-ai.github.io/langgraph/" },
+      { name: "AutoGen (UserProxyAgent)", url: "https://microsoft.github.io/autogen/" },
+      { name: "CrewAI (human_input=True)", url: "https://www.crewai.com/" }
     ],
     mermaidDiagram: `graph TD
     A[Agent Processing] --> B{Decision Point}
@@ -531,6 +623,37 @@ export const patterns: Pattern[] = [
       "Vector database costs",
       "Hallucination from bad matches",
       "Chunking strategy complexity"
+    ],
+    resources: [
+      { name: "Pinecone", url: "https://www.pinecone.io/" },
+      { name: "Pinecone RAG Guide", url: "https://www.pinecone.io/learn/retrieval-augmented-generation/" },
+      { name: "Pinecone RAG Series", url: "https://www.pinecone.io/learn/series/rag/" },
+      { name: "Weaviate", url: "https://weaviate.io/" },
+      { name: "Weaviate RAG Documentation", url: "https://docs.weaviate.io/weaviate/starter-guides/generative" },
+      { name: "Chroma", url: "https://www.trychroma.com/" },
+      { name: "Chroma GitHub", url: "https://github.com/chroma-core/chroma" },
+      { name: "Qdrant", url: "https://qdrant.tech/" },
+      { name: "Qdrant GitHub", url: "https://github.com/qdrant/qdrant" },
+      { name: "Milvus", url: "https://milvus.io/" },
+      { name: "FAISS (Facebook)", url: "https://github.com/facebookresearch/faiss" },
+      { name: "MongoDB Atlas", url: "https://www.mongodb.com/products/platform/atlas-vector-search" },
+      { name: "Redis Stack", url: "https://redis.io/docs/stack/" },
+      { name: "Neo4j", url: "https://neo4j.com/" },
+      { name: "Pgvector", url: "https://github.com/pgvector/pgvector" },
+      { name: "LlamaIndex", url: "https://www.llamaindex.ai/" },
+      { name: "Lantern", url: "https://lantern.dev/" },
+      { name: "Langfuse", url: "https://langfuse.com/" },
+      { name: "Ragas", url: "https://github.com/explodinggradients/ragas" },
+      { name: "LangSmith", url: "https://www.langchain.com/langsmith" },
+      { name: "Weights & Biases", url: "https://wandb.ai/" },
+      { name: "Agenta", url: "https://www.agenta.ai/" },
+      { name: "Building RAG with LangChain + Pinecone", url: "https://medium.com/@abdulll8392/building-a-retrieval-augmented-generation-rag-system-with-langchain-pinecone-and-chromadb-187827c46c3b" },
+      { name: "RAG with Weaviate", url: "https://docs.weaviate.io/weaviate/starter-guides/generative" },
+      { name: "Primer on Vector Databases and RAG", url: "https://blog.gopenai.com/primer-on-vector-databases-and-retrieval-augmented-generation-rag-using-langchain-pinecone-37a27fb10546" },
+      { name: "Architecting for Scale: Vector Database Options", url: "https://ragaboutit.com/architecting-for-scale-evaluating-vector-database-options-for-production-rag-systems/" },
+      { name: "Agentic RAG with AutoGen and LangGraph", url: "https://medium.com/@shradhacea/agentic-rag-using-autogen-and-langchain-langgraph-framework-89ac2d684702" },
+      { name: "Top 10 Platforms for RAG Systems", url: "https://blog.o11yai.com/blog/top-10-platforms-for-building-retrieval-augmented-generation-rag-systems-in/" },
+      { name: "Awesome RAG", url: "https://github.com/Danielskry/Awesome-RAG" }
     ],
     mermaidDiagram: `graph TD
     A[Source Documents] --> B[Parse Documents]
@@ -586,7 +709,12 @@ export const patterns: Pattern[] = [
       "Not production-ready for most cases",
       "Framework limitations"
     ],
-    keyConsideration: "This is the most complex pattern. Not recommended for production unless you have significant resources and engineering expertise."
+    keyConsideration: "This is the most complex pattern. Not recommended for production unless you have significant resources and engineering expertise.",
+    resources: [
+      { name: "AutoGen (message passing)", url: "https://microsoft.github.io/autogen/" },
+      { name: "LangGraph (graph communication)", url: "https://langchain-ai.github.io/langgraph/" },
+      { name: "CrewAI (team communication)", url: "https://www.crewai.com/" }
+    ]
   },
   {
     id: 15,
@@ -619,6 +747,10 @@ export const patterns: Pattern[] = [
       "Rubric development needed"
     ],
     keyConsideration: "Combine with prompt chaining to use multiple cheap models instead of one expensive one",
+    resources: [
+      { name: "GPT-4o mini vs GPT-4o routing", url: "https://openai.com/" },
+      { name: "Claude Haiku vs Sonnet routing", url: "https://www.anthropic.com/" }
+    ],
     mermaidDiagram: `graph TD
     A[Task Received] --> B[Analyze Complexity]
     B --> C[Set Budget]
@@ -683,7 +815,10 @@ export const patterns: Pattern[] = [
       "Latency issues",
       "Cost explosion"
     ],
-    keyConsideration: "Not needed for 90%+ of use cases. Highly experimental - use only with resources and expertise."
+    keyConsideration: "Not needed for 90%+ of use cases. Highly experimental - use only with resources and expertise.",
+    resources: [
+      { name: "LangChain (Chain of Thought, Tree of Thought)", url: "https://python.langchain.com/" }
+    ]
   },
   {
     id: 17,
@@ -715,7 +850,17 @@ export const patterns: Pattern[] = [
       "Infrastructure requirements",
       "Complexity at scale"
     ],
-    keyConsideration: "This level of infrastructure cannot be fully automated by current AI - requires human expertise"
+    keyConsideration: "This level of infrastructure cannot be fully automated by current AI - requires human expertise",
+    resources: [
+      { name: "Langfuse", url: "https://langfuse.com/" },
+      { name: "LangSmith", url: "https://www.langchain.com/langsmith" },
+      { name: "Weights & Biases", url: "https://wandb.ai/" },
+      { name: "Agenta", url: "https://www.agenta.ai/" },
+      { name: "Lilypad", url: "https://lilypad.so/" },
+      { name: "Mirascope", url: "https://mirascope.com/" },
+      { name: "PromptLayer", url: "https://promptlayer.com/" },
+      { name: "Best Prompt Engineering Tools", url: "https://mirascope.com/blog/prompt-engineering-tools" }
+    ]
   },
   {
     id: 18,
@@ -750,6 +895,10 @@ export const patterns: Pattern[] = [
       "Balance needed"
     ],
     keyConsideration: "Use pre-prompted strategies (clickable options) instead of open text boxes for maximum security",
+    resources: [
+      { name: "Content moderation APIs", url: "https://www.openai.com/" },
+      { name: "PII detection libraries", url: "https://github.com/" }
+    ],
     mermaidDiagram: `graph TD
     A[Input Received] --> B[Sanitize Input]
     B --> C{Check Input Type}
@@ -805,6 +954,9 @@ export const patterns: Pattern[] = [
       "Complexity in dynamic environments"
     ],
     keyConsideration: "Priority Score = (Value × Effort × Urgency) ÷ Risk",
+    resources: [
+      { name: "Task queuing systems", url: "https://github.com/" }
+    ],
     mermaidDiagram: `graph TD
     A[Task List] --> B[Build Dependency Graph]
     B --> C[Score Each Task]
@@ -863,6 +1015,10 @@ export const patterns: Pattern[] = [
       "Document processing overhead"
     ],
     keyConsideration: "This pattern powers features like Perplexity Deep Research and Claude Deep Research.",
+    resources: [
+      { name: "Deep Research features (Perplexity, Claude)", url: "https://www.perplexity.ai/" },
+      { name: "Academic search APIs", url: "https://www.semanticscholar.org/" }
+    ],
     mermaidDiagram: `graph TD
     A[Research Goal] --> B[Explore Sources]
     B --> C[Domain Experts]
@@ -916,5 +1072,20 @@ export const getComplexityColor = (complexity: ComplexityLevel): string => {
       return 'bg-badge-experimental text-primary-foreground';
     default:
       return 'bg-muted text-muted-foreground';
+  }
+};
+
+export const getComplexityTextColor = (complexity: ComplexityLevel): string => {
+  switch (complexity) {
+    case 'beginner':
+      return 'text-green-600';
+    case 'intermediate':
+      return 'text-blue-600';
+    case 'advanced':
+      return 'text-orange-600';
+    case 'experimental':
+      return 'text-purple-600';
+    default:
+      return 'text-muted-foreground';
   }
 };

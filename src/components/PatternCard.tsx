@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { ChevronDown, Link as LinkIcon, Check, Minus, Plus } from 'lucide-react';
-import { Pattern } from '@/data/patterns';
+import { ChevronDown, Link as LinkIcon, Check, Minus, Plus, ArrowUpRight } from 'lucide-react';
+import { Pattern, getComplexityTextColor } from '@/data/patterns';
 import { MermaidDiagram } from './MermaidDiagram';
 import { toast } from 'sonner';
 
@@ -11,6 +11,16 @@ interface PatternCardProps {
 export const PatternCard = ({ pattern }: PatternCardProps) => {
   const [showPros, setShowPros] = useState(false);
   const [showCons, setShowCons] = useState(false);
+  const [showResources, setShowResources] = useState(false);
+
+  const getFaviconUrl = (url: string) => {
+    try {
+      const domain = new URL(url).hostname;
+      return `https://www.google.com/s2/favicons?domain=${domain}&sz=16`;
+    } catch {
+      return `https://www.google.com/s2/favicons?domain=example.com&sz=16`;
+    }
+  };
 
   const handleCopyLink = () => {
     const url = `${window.location.origin}#${pattern.slug}`;
@@ -38,7 +48,7 @@ export const PatternCard = ({ pattern }: PatternCardProps) => {
               {pattern.title}
             </h2>
           </div>
-          <span className="text-xs text-muted-foreground">
+          <span className={`text-xs ${getComplexityTextColor(pattern.complexity)}`}>
             {getComplexityLabel(pattern.complexity)}
           </span>
         </div>
@@ -176,6 +186,51 @@ export const PatternCard = ({ pattern }: PatternCardProps) => {
             </div>
           )}
         </div>
+
+        {/* Resources */}
+        {pattern.resources && pattern.resources.length > 0 && (
+          <div className="border border-border">
+            <button
+              onClick={() => setShowResources(!showResources)}
+              className="w-full px-3 py-2 flex items-center justify-between text-xs hover:bg-muted transition-colors"
+            >
+              <span className="flex items-center gap-2">
+                <LinkIcon size={12} className="text-muted-foreground" />
+                <span>Resources ({pattern.resources.length})</span>
+              </span>
+              <ChevronDown
+                size={14}
+                className={`text-muted-foreground transition-transform ${
+                  showResources ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+            {showResources && (
+              <div className="px-3 py-2 border-t border-border space-y-2">
+                {pattern.resources.map((resource, i) => (
+                  <a
+                    key={i}
+                    href={resource.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-xs text-foreground hover:text-primary transition-colors group"
+                  >
+                    <img
+                      src={getFaviconUrl(resource.url)}
+                      alt=""
+                      className="w-4 h-4 shrink-0 rounded-sm"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = 'none';
+                      }}
+                    />
+                    <span className="flex-1 truncate">{resource.name}</span>
+                    <ArrowUpRight size={12} className="text-muted-foreground group-hover:text-primary shrink-0" />
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Key Consideration */}
         {pattern.keyConsideration && (

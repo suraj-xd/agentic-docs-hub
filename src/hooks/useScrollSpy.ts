@@ -10,6 +10,8 @@ export function useScrollSpy({ sectionIds, offset = 100, rootMargin = '-20% 0px 
   const [activeId, setActiveId] = useState<string>('');
   const [scrollProgress, setScrollProgress] = useState(0);
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const pendingIdRef = useRef<string>('');
 
   const calculateProgress = useCallback(() => {
     const scrollTop = window.scrollY;
@@ -29,16 +31,24 @@ export function useScrollSpy({ sectionIds, offset = 100, rootMargin = '-20% 0px 
       const visibleEntries = entries.filter(entry => entry.isIntersecting);
       
       if (visibleEntries.length > 0) {
-        // Get the entry closest to the top of the viewport
         const sortedByTop = visibleEntries.sort((a, b) => {
           return a.boundingClientRect.top - b.boundingClientRect.top;
         });
         
         const closestToTop = sortedByTop.find(entry => entry.boundingClientRect.top >= -offset);
-        if (closestToTop) {
-          setActiveId(closestToTop.target.id);
-        } else if (sortedByTop.length > 0) {
-          setActiveId(sortedByTop[0].target.id);
+        const newId = closestToTop ? closestToTop.target.id : (sortedByTop.length > 0 ? sortedByTop[0].target.id : '');
+        
+        if (newId && newId !== pendingIdRef.current) {
+          pendingIdRef.current = newId;
+          
+          if (debounceTimerRef.current) {
+            clearTimeout(debounceTimerRef.current);
+          }
+          
+          debounceTimerRef.current = setTimeout(() => {
+            setActiveId(pendingIdRef.current);
+            debounceTimerRef.current = null;
+          }, 150);
         }
       }
     };
@@ -57,6 +67,9 @@ export function useScrollSpy({ sectionIds, offset = 100, rootMargin = '-20% 0px 
 
     return () => {
       observerRef.current?.disconnect();
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
     };
   }, [sectionIds, offset, rootMargin]);
 

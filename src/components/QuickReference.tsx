@@ -1,4 +1,4 @@
-import { patterns, patternSelectionMatrix } from '@/data/patterns';
+import { patterns, patternSelectionMatrix, getComplexityTextColor, ComplexityLevel } from '@/data/patterns';
 
 interface QuickReferenceProps {
   onPatternClick: (slug: string) => void;
@@ -47,7 +47,7 @@ export const QuickReference = ({ onPatternClick }: QuickReferenceProps) => {
         <div className="p-4 space-y-4">
           {complexityGroups.map(group => (
             <div key={group.label}>
-              <span className="text-xs text-muted-foreground mb-2 block">[{group.label}]</span>
+              <span className={`text-xs mb-2 block ${getComplexityTextColor(group.label as ComplexityLevel)}`}>[{group.label}]</span>
               <div className="flex flex-wrap gap-1">
                 {group.patterns.map(p => (
                   <button

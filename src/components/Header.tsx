@@ -58,7 +58,7 @@ export const Header = ({
           </button>
           
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-foreground">◇</span>
+            <span className="text-xl font-medium text-foreground">⁕</span>
             <span className="text-sm font-medium text-foreground hidden sm:inline">
               agentic-patterns
             </span>

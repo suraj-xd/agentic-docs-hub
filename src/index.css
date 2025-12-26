@@ -2,95 +2,125 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Anthropic-inspired warm documentation design system */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Warm Anthropic-inspired palette */
+    --background: 40 33% 99%;
+    --foreground: 24 10% 10%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 40 25% 98%;
+    --card-foreground: 24 10% 10%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 40 25% 98%;
+    --popover-foreground: 24 10% 10%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 24 76% 46%;
+    --primary-foreground: 40 33% 99%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 40 20% 94%;
+    --secondary-foreground: 24 10% 20%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 40 15% 92%;
+    --muted-foreground: 24 8% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 24 60% 94%;
+    --accent-foreground: 24 76% 36%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 40 20% 88%;
+    --input: 40 20% 88%;
+    --ring: 24 76% 46%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Sidebar tokens */
+    --sidebar-background: 40 20% 97%;
+    --sidebar-foreground: 24 10% 30%;
+    --sidebar-primary: 24 76% 46%;
+    --sidebar-primary-foreground: 40 33% 99%;
+    --sidebar-accent: 24 60% 94%;
+    --sidebar-accent-foreground: 24 76% 36%;
+    --sidebar-border: 40 20% 90%;
+    --sidebar-ring: 24 76% 46%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Documentation-specific tokens */
+    --doc-heading: 24 10% 10%;
+    --doc-text: 24 8% 25%;
+    --doc-link: 24 76% 46%;
+    --doc-code-bg: 24 10% 8%;
+    --doc-code-text: 40 20% 90%;
+    --doc-inline-code-bg: 40 20% 92%;
+    --doc-inline-code-text: 24 70% 40%;
+    
+    /* Complexity badges */
+    --badge-beginner: 142 71% 45%;
+    --badge-intermediate: 45 93% 47%;
+    --badge-advanced: 24 76% 46%;
+    --badge-experimental: 0 84% 60%;
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Progress bar */
+    --progress-bg: 40 20% 90%;
+    --progress-fill: 24 76% 46%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 24 10% 8%;
+    --foreground: 40 20% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 24 10% 10%;
+    --card-foreground: 40 20% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 24 10% 10%;
+    --popover-foreground: 40 20% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 24 80% 55%;
+    --primary-foreground: 24 10% 8%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 24 10% 15%;
+    --secondary-foreground: 40 20% 90%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 24 10% 18%;
+    --muted-foreground: 40 15% 60%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 24 40% 18%;
+    --accent-foreground: 24 80% 65%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 24 10% 20%;
+    --input: 24 10% 20%;
+    --ring: 24 80% 55%;
+
+    --sidebar-background: 24 10% 6%;
+    --sidebar-foreground: 40 15% 70%;
+    --sidebar-primary: 24 80% 55%;
+    --sidebar-primary-foreground: 24 10% 8%;
+    --sidebar-accent: 24 40% 15%;
+    --sidebar-accent-foreground: 24 80% 65%;
+    --sidebar-border: 24 10% 15%;
+    --sidebar-ring: 24 80% 55%;
+
+    --doc-heading: 40 20% 95%;
+    --doc-text: 40 15% 75%;
+    --doc-link: 24 80% 60%;
+    --doc-code-bg: 24 10% 5%;
+    --doc-code-text: 40 20% 85%;
+    --doc-inline-code-bg: 24 10% 15%;
+    --doc-inline-code-text: 24 60% 65%;
+
+    --badge-beginner: 142 50% 40%;
+    --badge-intermediate: 45 80% 45%;
+    --badge-advanced: 24 70% 50%;
+    --badge-experimental: 0 70% 50%;
+
+    --progress-bg: 24 10% 15%;
+    --progress-fill: 24 80% 55%;
   }
 }
 
@@ -100,6 +130,70 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+}
+
+@layer components {
+  .doc-prose {
+    @apply text-[hsl(var(--doc-text))] leading-relaxed;
+  }
+
+  .doc-heading {
+    @apply text-[hsl(var(--doc-heading))] font-semibold tracking-tight;
+  }
+
+  .doc-link {
+    @apply text-[hsl(var(--doc-link))] hover:underline underline-offset-2 transition-colors;
+  }
+
+  .doc-code-block {
+    @apply bg-[hsl(var(--doc-code-bg))] text-[hsl(var(--doc-code-text))] rounded-lg;
+  }
+
+  .doc-inline-code {
+    @apply bg-[hsl(var(--doc-inline-code-bg))] text-[hsl(var(--doc-inline-code-text))] px-1.5 py-0.5 rounded text-sm font-mono;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
